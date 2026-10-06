@@ -1,9 +1,12 @@
 package se.mickelus.tetra.items.modular.impl.toolbelt.booster;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import se.mickelus.mutil.network.AbstractPacket;
+import se.mickelus.tetra.TetraMod;
 import se.mickelus.tetra.items.modular.impl.toolbelt.ToolbeltHelper;
 import se.mickelus.tetra.util.ItemStackTagHelper;
 
@@ -11,6 +14,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 public class UpdateBoosterPacket extends AbstractPacket {
+    public static final CustomPacketPayload.Type<UpdateBoosterPacket> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TetraMod.MOD_ID, "update_booster"));
 
     private boolean active;
     private boolean charged;
@@ -25,6 +29,11 @@ public class UpdateBoosterPacket extends AbstractPacket {
     public UpdateBoosterPacket(boolean active, boolean charged) {
         this.active = active;
         this.charged = charged;
+    }
+
+    @Override
+    public Type<UpdateBoosterPacket> type() {
+        return TYPE;
     }
 
     @Override

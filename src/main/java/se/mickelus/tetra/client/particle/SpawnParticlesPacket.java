@@ -5,8 +5,12 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import se.mickelus.mutil.network.AbstractPacket;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import se.mickelus.tetra.TetraMod;
 
 public class SpawnParticlesPacket extends AbstractPacket {
+    public static final CustomPacketPayload.Type<SpawnParticlesPacket> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TetraMod.MOD_ID, "spawn_particles"));
     private double x;
     private double y;
     private double z;
@@ -35,6 +39,12 @@ public class SpawnParticlesPacket extends AbstractPacket {
     }
 
     public SpawnParticlesPacket() {
+    }
+
+
+    @Override
+    public Type<SpawnParticlesPacket> type() {
+        return TYPE;
     }
 
     @Override

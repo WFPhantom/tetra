@@ -261,24 +261,24 @@ public class TetraMod {
     }
 
     private void registerPayloads(RegisterPayloadHandlersEvent event) {
-        packetHandler.registerClientBoundPacket(HonePacket.class, HonePacket::new);
-        packetHandler.registerClientBoundPacket(SettlePacket.class, SettlePacket::new);
-        packetHandler.registerClientBoundPacket(UpdateDataPacket.class, UpdateDataPacket::new);
-        packetHandler.registerServerBoundPacket(SecondaryAbilityPacket.class, SecondaryAbilityPacket::new);
-        packetHandler.registerServerBoundPacket(ChargedAbilityPacket.class, ChargedAbilityPacket::new);
-        packetHandler.registerServerBoundPacket(TruesweepPacket.class, TruesweepPacket::new);
-        packetHandler.registerServerBoundPacket(HowlingPacket.class, HowlingPacket::new);
-        packetHandler.registerClientBoundPacket(ProjectileMotionPacket.class, ProjectileMotionPacket::new);
-        packetHandler.registerClientBoundPacket(AddRevengePacket.class, AddRevengePacket::new);
-        packetHandler.registerClientBoundPacket(RemoveRevengePacket.class, RemoveRevengePacket::new);
-        packetHandler.registerServerBoundPacket(LungeEchoPacket.class, LungeEchoPacket::new);
-        packetHandler.registerServerBoundPacket(MultiblockSchematicScrollPacket.class, MultiblockSchematicScrollPacket::new);
-        packetHandler.registerServerBoundPacket(SecondaryInteractionPacket.class, SecondaryInteractionPacket::new);
-        packetHandler.registerClientBoundPacket(SpawnParticlesPacket.class, SpawnParticlesPacket::new);
+        packetHandler.registerPacket(HonePacket.class, HonePacket::new);
+        packetHandler.registerPacket(SettlePacket.class, SettlePacket::new);
+        packetHandler.registerPacket(UpdateDataPacket.class, UpdateDataPacket::new);
+        packetHandler.registerPacket(SecondaryAbilityPacket.class, SecondaryAbilityPacket::new);
+        packetHandler.registerPacket(ChargedAbilityPacket.class, ChargedAbilityPacket::new);
+        packetHandler.registerPacket(TruesweepPacket.class, TruesweepPacket::new);
+        packetHandler.registerPacket(HowlingPacket.class, HowlingPacket::new);
+        packetHandler.registerPacket(ProjectileMotionPacket.class, ProjectileMotionPacket::new);
+        packetHandler.registerPacket(AddRevengePacket.class, AddRevengePacket::new);
+        packetHandler.registerPacket(RemoveRevengePacket.class, RemoveRevengePacket::new);
+        packetHandler.registerPacket(LungeEchoPacket.class, LungeEchoPacket::new);
+        packetHandler.registerPacket(MultiblockSchematicScrollPacket.class, MultiblockSchematicScrollPacket::new);
+        packetHandler.registerPacket(SecondaryInteractionPacket.class, SecondaryInteractionPacket::new);
+        packetHandler.registerPacket(SpawnParticlesPacket.class, SpawnParticlesPacket::new);
 
         WorkbenchTile.registerPackets(packetHandler);
         TetraRegistries.registerPackets(packetHandler);
-        packetHandler.registerPayloads(event);
+        packetHandler.register(event);
     }
 
     private void registerCommands(RegisterCommandsEvent event) {

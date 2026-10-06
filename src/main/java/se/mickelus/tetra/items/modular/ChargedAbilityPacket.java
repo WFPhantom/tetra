@@ -2,18 +2,22 @@ package se.mickelus.tetra.items.modular;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import se.mickelus.mutil.network.BlockPosPacket;
+import se.mickelus.tetra.TetraMod;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Optional;
 
 @ParametersAreNonnullByDefault
 public class ChargedAbilityPacket extends BlockPosPacket {
+    public static final CustomPacketPayload.Type<ChargedAbilityPacket> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TetraMod.MOD_ID, "charged_ability"));
 
     private int targetId = -1;
     private InteractionHand hand;
@@ -34,6 +38,11 @@ public class ChargedAbilityPacket extends BlockPosPacket {
         this.ticksUsed = ticksUsed;
 
         this.hitVec = hitVec == null ? Vec3.ZERO : hitVec;
+    }
+
+    @Override
+    public Type<ChargedAbilityPacket> type() {
+        return TYPE;
     }
 
     @Override

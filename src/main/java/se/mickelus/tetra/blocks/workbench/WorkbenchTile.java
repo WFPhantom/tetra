@@ -81,10 +81,10 @@ public class WorkbenchTile extends BlockEntity implements MenuProvider, ItemHand
     }
 
     public static void registerPackets(PacketHandler packetHandler) {
-        packetHandler.registerServerBoundPacket(WorkbenchPacketUpdate.class, WorkbenchPacketUpdate::new);
-        packetHandler.registerServerBoundPacket(WorkbenchPacketCraft.class, WorkbenchPacketCraft::new);
-        packetHandler.registerServerBoundPacket(WorkbenchActionPacket.class, WorkbenchActionPacket::new);
-        packetHandler.registerServerBoundPacket(WorkbenchPacketTweak.class, WorkbenchPacketTweak::new);
+        packetHandler.registerPacket(WorkbenchPacketUpdate.class, WorkbenchPacketUpdate::new);
+        packetHandler.registerPacket(WorkbenchPacketCraft.class, WorkbenchPacketCraft::new);
+        packetHandler.registerPacket(WorkbenchActionPacket.class, WorkbenchActionPacket::new);
+        packetHandler.registerPacket(WorkbenchPacketTweak.class, WorkbenchPacketTweak::new);
     }
 
     public static void init() {

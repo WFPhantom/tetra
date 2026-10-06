@@ -2,8 +2,11 @@ package se.mickelus.tetra.blocks.workbench;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import se.mickelus.mutil.network.AbstractPacket;
+import se.mickelus.tetra.TetraMod;
 import se.mickelus.tetra.module.SchematicRegistry;
 import se.mickelus.tetra.module.schematic.UpgradeSchematic;
 
@@ -12,6 +15,7 @@ import java.util.Objects;
 
 @ParametersAreNonnullByDefault
 public class WorkbenchPacketUpdate extends AbstractPacket {
+    public static final CustomPacketPayload.Type<WorkbenchPacketUpdate> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TetraMod.MOD_ID, "workbench_update"));
 
     private BlockPos pos;
     private UpgradeSchematic schematic;
@@ -27,18 +31,23 @@ public class WorkbenchPacketUpdate extends AbstractPacket {
     }
 
     @Override
+    public Type<WorkbenchPacketUpdate> type() {
+        return TYPE;
+    }
+
+    @Override
     public void toBytes(FriendlyByteBuf buffer) {
         buffer.writeInt(pos.getX());
         buffer.writeInt(pos.getY());
         buffer.writeInt(pos.getZ());
 
         if (schematic != null) {
-            writeString(schematic.getKey(), buffer);
+            buffer.writeUtf(schematic.getKey());
         } else {
-            writeString("", buffer);
+            buffer.writeUtf("");
         }
 
-        writeString(Objects.requireNonNullElse(selectedSlot, ""), buffer);
+        buffer.writeUtf(Objects.requireNonNullElse(selectedSlot, ""));
     }
 
     @Override
@@ -48,10 +57,10 @@ public class WorkbenchPacketUpdate extends AbstractPacket {
         int z = buffer.readInt();
         pos = new BlockPos(x, y, z);
 
-        String schematicKey = readString(buffer);
+        String schematicKey = buffer.readUtf();
         schematic = SchematicRegistry.getSchematic(schematicKey);
 
-        selectedSlot = readString(buffer);
+        selectedSlot = buffer.readUtf();
 
         if ("".equals(selectedSlot)) {
             selectedSlot = null;

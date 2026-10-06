@@ -1,11 +1,14 @@
 package se.mickelus.tetra.items.modular;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import se.mickelus.mutil.network.AbstractPacket;
+import se.mickelus.tetra.TetraMod;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -13,6 +16,8 @@ import java.util.Optional;
 
 @ParametersAreNonnullByDefault
 public class SecondaryAbilityPacket extends AbstractPacket {
+    public static final CustomPacketPayload.Type<SecondaryAbilityPacket> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TetraMod.MOD_ID, "secondary_ability"));
+
     private int targetId = -1;
     private InteractionHand hand;
 
@@ -25,6 +30,11 @@ public class SecondaryAbilityPacket extends AbstractPacket {
                 .orElse(-1);
 
         this.hand = hand;
+    }
+
+    @Override
+    public Type<SecondaryAbilityPacket> type() {
+        return TYPE;
     }
 
     @Override

@@ -11,22 +11,25 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.fml.ModList;
 import se.mickelus.mutil.util.CastOptional;
 import se.mickelus.tetra.ConfigHandler;
 import se.mickelus.tetra.blocks.salvage.BlockInteraction;
 import se.mickelus.tetra.blocks.salvage.IInteractiveBlock;
+import se.mickelus.tetra.compat.curios.CuriosToolbelt;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.items.modular.IModularItem;
 import se.mickelus.tetra.items.modular.ItemModularHandheld;
 import se.mickelus.tetra.items.modular.impl.toolbelt.inventory.*;
 import se.mickelus.tetra.properties.IToolProvider;
-import top.theillusivec4.curios.api.CuriosApi;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
 
 @ParametersAreNonnullByDefault
 public class ToolbeltHelper {
+    private static final boolean curiosLoaded = ModList.get().isLoaded("curios");
+
     public static void equipItemFromToolbelt(Player player, ToolbeltSlotType slotType, int index, InteractionHand hand) {
         ToolbeltInventory inventory = null;
         ItemStack toolbeltStack = findToolbelt(player);
@@ -145,14 +148,14 @@ public class ToolbeltHelper {
      * @return A toolbelt itemstack, or an empty itemstack if the player has no toolbelt
      */
     public static ItemStack findToolbelt(Player player) {
-        Optional<ItemStack> equippedToolbelt = CuriosApi.getCuriosInventory(player)
-                .flatMap(handler -> handler.findFirstCurio(ModularToolbeltItem.instance.get()))
-                .map(slotResult -> slotResult.stack());
-        if (equippedToolbelt.isPresent()) {
-            return equippedToolbelt.get();
-        }
-        if (ConfigHandler.toolbeltCurioOnly.get()) {
-            return ItemStack.EMPTY;
+        if (curiosLoaded) {
+            ItemStack equippedToolbelt = CuriosToolbelt.findToolbelt(player);
+            if (!equippedToolbelt.isEmpty()) {
+                return equippedToolbelt;
+            }
+            if (ConfigHandler.toolbeltCurioOnly.get()) {
+                return ItemStack.EMPTY;
+            }
         }
         Inventory inventoryPlayer = player.getInventory();
         for (int i = 0; i < inventoryPlayer.items.size(); ++i) {

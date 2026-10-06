@@ -121,7 +121,7 @@ public class ForgedContainerBlock extends TetraWaterloggedBlock implements IInte
 
     @Override
     public void registerPackets(PacketHandler packetHandler) {
-        packetHandler.registerServerBoundPacket(ChangeCompartmentPacket.class, ChangeCompartmentPacket::new);
+        packetHandler.registerPacket(ChangeCompartmentPacket.class, ChangeCompartmentPacket::new);
     }
 
     @Override

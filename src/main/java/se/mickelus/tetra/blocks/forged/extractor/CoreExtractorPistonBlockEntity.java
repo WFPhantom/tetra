@@ -32,8 +32,8 @@ public class CoreExtractorPistonBlockEntity extends BlockEntity {
         if (!isActive()) {
             endTime = level.getGameTime() + activationDuration;
 
-            if (!level.isClientSide) {
-                TetraMod.packetHandler.sendToAllPlayersNear(new CoreExtractorPistonUpdatePacket(worldPosition, endTime), worldPosition, 64, level.dimension());
+            if (level instanceof ServerLevel serverLevel) {
+                TetraMod.packetHandler.sendToAllPlayersNear(new CoreExtractorPistonUpdatePacket(worldPosition, endTime), serverLevel, worldPosition, 64);
             }
         }
     }

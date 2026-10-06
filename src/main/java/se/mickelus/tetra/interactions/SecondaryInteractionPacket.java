@@ -2,13 +2,18 @@ package se.mickelus.tetra.interactions;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import se.mickelus.mutil.network.BlockPosPacket;
+import se.mickelus.tetra.TetraMod;
 
 import java.util.Optional;
 
 public class SecondaryInteractionPacket extends BlockPosPacket {
+    public static final CustomPacketPayload.Type<SecondaryInteractionPacket> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TetraMod.MOD_ID, "secondary_interaction"));
+
     private String key;
     private int targetId = -1;
 
@@ -21,6 +26,11 @@ public class SecondaryInteractionPacket extends BlockPosPacket {
         targetId = Optional.ofNullable(target)
                 .map(Entity::getId)
                 .orElse(-1);
+    }
+
+    @Override
+    public Type<SecondaryInteractionPacket> type() {
+        return TYPE;
     }
 
     @Override

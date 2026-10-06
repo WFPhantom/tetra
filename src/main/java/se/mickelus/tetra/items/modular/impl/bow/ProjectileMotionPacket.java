@@ -1,16 +1,21 @@
 package se.mickelus.tetra.items.modular.impl.bow;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.Vec3;
 import se.mickelus.mutil.network.AbstractPacket;
+import se.mickelus.tetra.TetraMod;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Optional;
 
 @ParametersAreNonnullByDefault
 public class ProjectileMotionPacket extends AbstractPacket {
+    public static final CustomPacketPayload.Type<ProjectileMotionPacket> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TetraMod.MOD_ID, "projectile_motion"));
+
     private int entityId = -1;
     private float motionX;
     private float motionY;
@@ -26,6 +31,11 @@ public class ProjectileMotionPacket extends AbstractPacket {
         motionX = (float) motion.x;
         motionY = (float) motion.y;
         motionZ = (float) motion.z;
+    }
+
+    @Override
+    public Type<ProjectileMotionPacket> type() {
+        return TYPE;
     }
 
     @Override

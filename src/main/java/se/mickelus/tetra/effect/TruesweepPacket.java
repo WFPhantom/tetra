@@ -1,15 +1,25 @@
 package se.mickelus.tetra.effect;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import se.mickelus.mutil.network.AbstractPacket;
+import se.mickelus.tetra.TetraMod;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 public class TruesweepPacket extends AbstractPacket {
+    public static final CustomPacketPayload.Type<TruesweepPacket> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(TetraMod.MOD_ID, "truesweep"));
+
     public TruesweepPacket() {
+    }
+
+    @Override
+    public Type<TruesweepPacket> type() {
+        return TYPE;
     }
 
     @Override

@@ -69,7 +69,7 @@ public class ArcaneFireBlock extends BaseFireBlock {
                         origin.x(), origin.y(), origin.z(),
                         blockPos.getX() + 0.5f, blockPos.getY(), blockPos.getZ() + 0.5f, false, 8,
                         Particles.splinteredPower.get()),
-                blockPos, 64, level.dimension());
+                level, blockPos, 64);
 
         ServerScheduler.schedule(40, () -> spawnDust(level, blockPos, 0.5f));
         ServerScheduler.schedule(38, () -> level.playSound(null, blockPos, TetraSounds.arcane_fire_1, SoundSource.PLAYERS, 0.05f, 1));

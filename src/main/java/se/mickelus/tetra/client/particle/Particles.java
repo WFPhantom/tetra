@@ -18,6 +18,6 @@ public class Particles {
 
     public static void addSputteringPower(ServerLevel level, double x, double y, double z, Entity entity, int count) {
         TetraMod.packetHandler.sendToAllPlayersNear(new SpawnParticlesPacket(x, y, z, entity.getId(), 0, 0, false, count, sputteringPower.get()),
-                new BlockPos((int) x, (int) y, (int) z), 64, level.dimension());
+                level, new BlockPos((int) x, (int) y, (int) z), 64);
     }
 }

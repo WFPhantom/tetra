@@ -68,11 +68,11 @@ public class ModularToolbeltItem extends ModularItem implements MenuProvider {
 
     @Override
     public void registerPackets(PacketHandler packetHandler) {
-        packetHandler.registerServerBoundPacket(EquipToolbeltItemPacket.class, EquipToolbeltItemPacket::new);
-        packetHandler.registerServerBoundPacket(StoreToolbeltItemPacket.class, StoreToolbeltItemPacket::new);
-        packetHandler.registerServerBoundPacket(OpenToolbeltItemPacket.class, OpenToolbeltItemPacket::new);
-        packetHandler.registerServerBoundPacket(UpdateBoosterPacket.class, UpdateBoosterPacket::new);
-        packetHandler.registerServerBoundPacket(ToggleSuspendPacket.class, ToggleSuspendPacket::new);
+        packetHandler.registerPacket(EquipToolbeltItemPacket.class, EquipToolbeltItemPacket::new);
+        packetHandler.registerPacket(StoreToolbeltItemPacket.class, StoreToolbeltItemPacket::new);
+        packetHandler.registerPacket(OpenToolbeltItemPacket.class, OpenToolbeltItemPacket::new);
+        packetHandler.registerPacket(UpdateBoosterPacket.class, UpdateBoosterPacket::new);
+        packetHandler.registerPacket(ToggleSuspendPacket.class, ToggleSuspendPacket::new);
     }
 
     @Override

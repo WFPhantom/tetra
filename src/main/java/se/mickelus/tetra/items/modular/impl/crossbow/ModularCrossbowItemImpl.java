@@ -15,6 +15,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -433,8 +434,8 @@ public class ModularCrossbowItemImpl extends AbstractModularCrossbowItem {
         world.addFreshEntity(projectile);
 
         // vanilla velocity sync breaks when velocity is >3.9 on any axis
-        if (projectileVelocity > 4) {
-            TetraMod.packetHandler.sendToAllPlayersNear(new ProjectileMotionPacket(projectile), projectile.blockPosition(), 512, world.dimension());
+        if (projectileVelocity > 4 && world instanceof ServerLevel serverLevel) {
+            TetraMod.packetHandler.sendToAllPlayersNear(new ProjectileMotionPacket(projectile), serverLevel, projectile.blockPosition(), 512);
         }
     }
 
